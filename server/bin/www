@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+ const { Server, Socket } = require('socket.io')
 /**
  * Module dependencies.
  */
@@ -20,6 +20,19 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    credentials: false,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log('Socket.io init success');
+  socket.on('enter', async () => {
+    console.log('Get enter event.');
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
