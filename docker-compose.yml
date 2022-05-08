@@ -9,8 +9,14 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - server
+      - client
 
   server:
     build: ./server
     environment:
       - PORT=3000
+
+  client:
+    build: ./client
+    environment:
+      - PORT=4000
